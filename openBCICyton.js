@@ -122,7 +122,7 @@ let _options = {
   sntpTimeSyncHost: 'pool.ntp.org',
   sntpTimeSyncPort: 123,
   verbose: true,
-  debug: true
+  debug: false
 };
 
 /**
@@ -608,6 +608,8 @@ Cyton.prototype.autoFindOpenBCIBoard = function () {
       resolve(k.OBCISimulatorPortName);
     } else {
       SerialPort.list().then(ports => {
+
+      	console.log("ports: " + JSON.stringify(ports));
         /*if (err) {
           if (this.options.verbose) console.log('serial port err');
           reject(err);
@@ -615,12 +617,15 @@ Cyton.prototype.autoFindOpenBCIBoard = function () {
         // This is one big if statement
         if (ports.some(port => {
           return serialPatterns.some(patterns => {
-            for (let attribute in patterns) {
+            /*for (let attribute in patterns) {
               if (!String(port[attribute]).match(patterns[attribute])) {
+              	console.log("port[attribute]: " + port[attribute]);
+              	console.log("patterns[attribute]: " + patterns[attribute]);
                 return false;
               }
-            }
+            }*/
             this.portName = port.path;
+            console.log("setting portname to: " + this.portName);
             return true;
           });
         })) {
