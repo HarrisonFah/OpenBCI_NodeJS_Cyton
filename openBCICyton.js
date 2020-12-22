@@ -121,8 +121,8 @@ let _options = {
   sntpTimeSync: false,
   sntpTimeSyncHost: 'pool.ntp.org',
   sntpTimeSyncPort: 123,
-  verbose: false,
-  debug: false
+  verbose: true,
+  debug: true
 };
 
 /**
@@ -590,10 +590,10 @@ Cyton.prototype._writeAndDrain = function (data) {
 Cyton.prototype.autoFindOpenBCIBoard = function () {
   const serialPatterns = [
     { // mac
-      comName: /usbserial-D/
+      path: /usbserial-D/
     },
     { // linux
-      comName: /^\/dev\/ttyUSB/,
+      path: /^\/dev\/ttyUSB/,
       manufacturer: /^FTDI$/,
       serialNumber: /^FTDI_FT231X_USB_UART/,
       vendorId: /^0x0403$/,
@@ -607,11 +607,11 @@ Cyton.prototype.autoFindOpenBCIBoard = function () {
       if (this.options.verbose) console.log('auto found sim board');
       resolve(k.OBCISimulatorPortName);
     } else {
-      SerialPort.list((err, ports) => {
-        if (err) {
+      SerialPort.list().then(ports => {
+        /*if (err) {
           if (this.options.verbose) console.log('serial port err');
           reject(err);
-        }
+        }*/
         // This is one big if statement
         if (ports.some(port => {
           return serialPatterns.some(patterns => {
@@ -620,7 +620,7 @@ Cyton.prototype.autoFindOpenBCIBoard = function () {
                 return false;
               }
             }
-            this.portName = port.comName;
+            this.portName = port.path;
             return true;
           });
         })) {
@@ -1061,7 +1061,7 @@ Cyton.prototype.listPorts = function () {
       if (err) reject(err);
       else {
         ports.push({
-          comName: k.OBCISimulatorPortName,
+          path: k.OBCISimulatorPortName,
           manufacturer: '',
           serialNumber: '',
           pnpId: '',
