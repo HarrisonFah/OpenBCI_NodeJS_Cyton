@@ -18,13 +18,13 @@
   "dependencies": {
     "buffer-equal": "^1.0.0",
     "lodash": "^4.17.4",
-    "mathjs": "^4.0.1",
+    "mathjs": "^8.1.0",
     "@openbci/cyton": "^2.0.1",
     "@openbci/utilities": "^1.0.0",
     "performance-now": "^2.1.0",
     "safe-buffer": "^5.1.1",
-    "serialport": "^6.1.1",
-    "sntp": "^2.0.2"
+    "serialport": "^9.0.4",
+    "sntp": "^3.0.2"
   },
   "directories": {
     "test": "test"
