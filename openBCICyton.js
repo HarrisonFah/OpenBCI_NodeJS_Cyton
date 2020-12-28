@@ -604,6 +604,7 @@ Cyton.prototype.autoFindOpenBCIBoard = function () {
     }
   ];
   return new Promise((resolve, reject) => {
+    console.log("(Harrison) If you are seeing this then you are using the right version.")
     /* istanbul ignore else  */
     if (this.options.simulate) {
       this.portName = k.OBCISimulatorPortName;
@@ -611,6 +612,7 @@ Cyton.prototype.autoFindOpenBCIBoard = function () {
       resolve(k.OBCISimulatorPortName);
     } else {
       SerialPort.list((err, ports) => {
+        console.log("(Harrison) ports: " + JSON.stringify(ports))
         if (err) {
           if (this.options.verbose) console.log('serial port err');
           reject(err);
