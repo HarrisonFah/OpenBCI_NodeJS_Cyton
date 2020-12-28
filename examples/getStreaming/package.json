@@ -13,6 +13,6 @@
   "author": "AJ Keller",
   "license": "MIT",
   "dependencies": {
-    "openbci": "^2.0.0"
+    "openbci": "^2.1.0"
   }
 }
